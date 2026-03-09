@@ -3,29 +3,18 @@ use std::cmp::Ordering;
 fn binary_search(arr: &[i32], target: i32) -> Option<usize> {
     let mut low: usize = 0;
     let mut high: usize = arr.len() - 1;
-    let mut mid: usize = high / 2;
 
-    loop {
+    while low <= high {
+        let mid = (high - low) / 2 + low;
+
         match arr[mid].cmp(&target) {
             Ordering::Equal => return Some(mid),
-            Ordering::Less => {
-                let new_mid = (high - mid) / 2 + mid;
-                if new_mid == mid {
-                    return None;
-                }
-                low = mid;
-                mid = new_mid;
-            },
-            Ordering::Greater => {
-                let new_mid = (mid - low) / 2;
-                if new_mid == mid {
-                    return None;
-                }
-                high = mid;
-                mid = new_mid;
-            },
+            Ordering::Less => low = mid + 1,
+            Ordering::Greater => high = mid - 1,
         };
     }
+
+    return None;
 }
 
 #[cfg(test)]
