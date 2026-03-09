@@ -1,8 +1,11 @@
 fn bubble_sort(arr: &mut [i32]) {
+    if arr.len() <= 1 { return }
+
+    let mut max = arr.len() - 1;
     loop {
         let mut swapped = false;
 
-        for i in 1..arr.len() {
+        for i in 1..=max {
             if arr[i - 1] > arr[i] {
                 arr.swap(i - 1, i);
                 swapped = true;
@@ -10,6 +13,8 @@ fn bubble_sort(arr: &mut [i32]) {
         }
 
         if !swapped { break }
+
+        max = max - 1;
     }
 }
 
