@@ -1,5 +1,6 @@
 mod binary_search;
 mod sorting;
+mod data_structures;
 
 #[cfg(test)]
 fn create_unsorted_dataset() -> Vec<i32> {
