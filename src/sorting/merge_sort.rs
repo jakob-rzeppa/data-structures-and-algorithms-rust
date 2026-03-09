@@ -41,8 +41,6 @@ fn merge(arr1: &[i32], arr2: &[i32]) -> Vec<i32> {
 
 #[cfg(test)]
 mod tests {
-    use std::collections::HashSet;
-    use rand::Rng;
     use crate::create_unsorted_dataset;
     use super::*;
 

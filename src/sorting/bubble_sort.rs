@@ -20,8 +20,6 @@ fn bubble_sort(arr: &mut [i32]) {
 
 #[cfg(test)]
 mod tests {
-    use std::collections::HashSet;
-    use rand::Rng;
     use crate::create_unsorted_dataset;
     use super::*;
 
