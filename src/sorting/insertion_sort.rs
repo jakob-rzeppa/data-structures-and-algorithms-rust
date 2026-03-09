@@ -16,6 +16,7 @@ fn insertion_sort(arr: &mut [i32]) {
 mod tests {
     use std::collections::HashSet;
     use rand::Rng;
+    use crate::create_unsorted_dataset;
     use super::*;
 
     #[test]
@@ -48,16 +49,7 @@ mod tests {
 
     #[test]
     fn big_dataset() {
-        let mut rng = rand::thread_rng();
-        let mut dataset = HashSet::new();
-
-        // Generate unique random numbers
-        while dataset.len() < 1000 {
-            dataset.insert(rng.gen_range(0..i32::MAX));
-        }
-
-        // Convert to sorted vector
-        let mut data: Vec<i32> = dataset.into_iter().collect();
+        let mut data = create_unsorted_dataset();
 
         insertion_sort(&mut data);
 
