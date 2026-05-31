@@ -1,5 +1,8 @@
+#[allow(dead_code)]
 mod binary_search;
+#[allow(dead_code)]
 mod sorting;
+#[allow(dead_code)]
 mod data_structures;
 
 #[cfg(test)]
