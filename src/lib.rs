@@ -4,6 +4,8 @@ mod binary_search;
 mod sorting;
 #[allow(dead_code)]
 mod data_structures;
+#[allow(dead_code)]
+mod shortest_path;
 
 #[cfg(test)]
 fn create_unsorted_dataset() -> Vec<i32> {

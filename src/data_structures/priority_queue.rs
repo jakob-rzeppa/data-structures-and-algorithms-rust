@@ -1,11 +1,14 @@
 use std::collections::VecDeque;
 
-#[derive(Default)]
-pub struct PriorityQueue<E: PartialOrd> {
+pub struct PriorityQueue<E: PartialOrd + PartialEq + Clone> {
     data: VecDeque<E>,
 }
 
-impl<E: PartialOrd> PriorityQueue<E> {
+impl<E: PartialOrd + PartialEq + Clone> PriorityQueue<E> {
+    pub fn new() -> Self {
+        Self { data: VecDeque::new() }
+    }
+
     pub fn is_empty(&self) -> bool {
         self.data.is_empty()
     }
@@ -25,6 +28,18 @@ impl<E: PartialOrd> PriorityQueue<E> {
     pub fn deque(&mut self) -> Option<E> {
         self.data.pop_front()
     }
+
+    pub fn get(&self, index: usize) -> Option<&E> {
+        self.data.get(index)
+    }
+
+    pub fn position<P: FnMut(&E) -> bool>(&self, predicate: P) -> Option<usize> {
+        self.data.iter().position(predicate)
+    }
+
+    pub fn remove(&mut self, index: usize) -> Option<E> {
+        self.data.remove(index)
+    }
 }
 
 #[cfg(test)]
@@ -33,7 +48,7 @@ mod tests {
 
     #[test]
     fn test_priority_queue() {
-        let mut priority_queue = PriorityQueue::default();
+        let mut priority_queue = PriorityQueue::new();
 
         priority_queue.enque(5);
         priority_queue.enque(3);
@@ -47,5 +62,24 @@ mod tests {
         assert_eq!(priority_queue.deque(), Some(4));
         assert_eq!(priority_queue.deque(), Some(5));
         assert_eq!(priority_queue.deque(), None);
+    }
+
+    #[test]
+    fn test_priority_queue_position_and_remove() {
+        let mut priority_queue = PriorityQueue::new();
+
+        priority_queue.enque(5);
+        priority_queue.enque(3);
+        priority_queue.enque(4);
+
+        assert_eq!(
+            priority_queue.position(|e| *e == 4),
+            Some(1)
+        );
+        assert_eq!(priority_queue.remove(1), Some(4));
+        assert_eq!(
+            priority_queue.position(|e| *e == 4),
+            None
+        );
     }
 }
